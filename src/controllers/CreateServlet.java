@@ -51,11 +51,11 @@ public class CreateServlet extends HttpServlet {
             // データベースに保存
             em.persist(m);
             em.getTransaction().commit();
+            request.getSession().setAttribute("flush", "登録が完了しました。");
+            em.close();
 
             // 自動採番されたIDの値を表示
             response.getWriter().append(Integer.valueOf(m.getId()).toString());
-
-            em.close();
 
             response.sendRedirect(request.getContextPath() + "/index");
         }
