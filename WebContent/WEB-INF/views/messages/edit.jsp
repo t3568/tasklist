@@ -3,9 +3,9 @@
 <c:import url="../layout/app.jsp">
     <c:param name="content">
         <c:choose>
-            <c:when test="${message != null}">
+            <c:when test="${tasks != null}">
 
-                <h2>id : ${messages.id} のメッセージ編集ページ</h2>
+                <h2>id : ${tasks.id} のメッセージ編集ページ</h2>
 
                 <form method="POST" action="${pageContext.request.contextPath}/update">
                     <c:import url="_form.jsp" />
