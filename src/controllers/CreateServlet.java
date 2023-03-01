@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Message;
-import models.validators.MessageValidator;
+import models.Task;
+import models.validators.TaskValidator;
 import utils.DBUtil;
 
 /**
@@ -40,8 +40,8 @@ public class CreateServlet extends HttpServlet {
             EntityManager em = DBUtil.createEntityManager();
             em.getTransaction().begin();
 
-            // Messageのインスタンスを生成
-            Message m = new Message();
+            // Taskのインスタンスを生成
+            Task m = new Task();
 
             // mの各フィールドにデータを代入
             String content = request.getParameter("content");
@@ -52,7 +52,7 @@ public class CreateServlet extends HttpServlet {
             m.setUpdated_at(currentTime);
 
             // バリデーションを実行してエラーがあったら新規登録のフォームに戻る
-            List<String> errors = MessageValidator.validate(m);
+            List<String> errors = TaskValidator.validate(m);
             if(errors.size() > 0) {
                 em.close();
 
@@ -61,7 +61,7 @@ public class CreateServlet extends HttpServlet {
                 request.setAttribute("message", m);
                 request.setAttribute("errors", errors);
 
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/messages/new.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/tasks/new.jsp");
                 rd.forward(request, response);
             } else {
                 // データベースに保存
